@@ -3,6 +3,9 @@ import uuid from "react-uuid";
 import "./App.css";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
+import RoutesC from "./routes/RoutesC";
+import { AuthProvider } from "./Auth";
+
 
 
 function App() {
@@ -45,18 +48,22 @@ function App() {
 
   const getActiveNote = () => {
     return notes.find(({ id }) => id === activeNote);
-  };
 
-  return (
-    <div className="App">
-      <Sidebar
+    /* <Sidebar
         notes={notes}
         onAddNote={onAddNote}
         onDeleteNote={onDeleteNote}
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />*/
+  };
+
+  return (
+    <div className="App">
+      <AuthProvider>
+        <RoutesC />
+      </AuthProvider>
     </div>
   );
 }

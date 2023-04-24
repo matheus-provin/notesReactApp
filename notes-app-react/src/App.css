@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-/* GLOBAL STYLES */
 
 body,
 .App {
@@ -31,11 +30,11 @@ button:hover {
   color: #04c;
 }
 
-.App {
-  display: flex;
+.notes {
+ display: flex;
 }
 
-/* SIDEBAR STYLES */
+
 
 .app-sidebar {
   width: 30%;
@@ -84,7 +83,6 @@ button:hover {
   color: white;
 }
 
-/* NOTE EDITOR/PREVIEW (MAIN) STYLES */
 
 .app-main {
   width: 70%;
@@ -126,7 +124,6 @@ textarea {
   font-size: 2rem;
 }
 
-/* Preview */
 .app-main-note-preview {
   border-top: 1px solid #ddd;
   overflow-y: scroll;
@@ -143,3 +140,4 @@ textarea {
   font-size: 1rem;
   line-height: 2rem;
 }
+
