@@ -9,7 +9,7 @@ import { AuthProvider } from "./Auth";
 
 
 function App() {
-  const [notes, setNotes] = useState(
+  /*const [notes, setNotes] = useState(
     localStorage.notes ? JSON.parse(localStorage.notes) : []
   );
   const [activeNote, setActiveNote] = useState(false);
@@ -57,7 +57,7 @@ function App() {
         setActiveNote={setActiveNote}
       />
       <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />*/
-  };
+
 
   return (
     <div className="App">

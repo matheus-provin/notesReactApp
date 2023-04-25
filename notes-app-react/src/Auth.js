@@ -1,9 +1,16 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 
 export const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
+export function useAuth() {
+  const [user, setUser] = useState(null);
+  return useContext(AuthContext);
+}
+
+export const AuthProvider = ({ children}) => {
+  const [user, setUser] = useState(null);
+  const [userToken, setUserToken] = useState("");
+  const [userNotes, setUserNotes] = useState([]);
 
   useEffect(() => {
     const userToken = localStorage.getItem("user_token");
@@ -14,7 +21,10 @@ export const AuthProvider = ({ children }) => {
         (user) => user.email === JSON.parse(userToken).email
       );
 
-      if (hasUser) setUser(hasUser[0]);
+      if (hasUser) {
+        setUser(hasUser[0])
+        setUserToken("")
+      }
     }
   }, []);
 
@@ -26,8 +36,12 @@ export const AuthProvider = ({ children }) => {
     if (hasUser?.length) {
       if (hasUser[0].email === email && hasUser[0].password === password) {
         const token = Math.random().toString(36).substring(2);
+        
         localStorage.setItem("user_token", JSON.stringify({ email, token }));
-        setUser({ email, password });
+        localStorage.setItem(`${email}_notes`, JSON.stringify([]));
+        setUser({ email, password});
+        setUserToken(token)
+        setUserNotes([]);
         return;
       } else {
         return "E-mail ou senha incorretos";
@@ -61,12 +75,14 @@ export const AuthProvider = ({ children }) => {
 
   const signout = () => {
     setUser(null);
-    localStorage.removeItem("user_token");
+    setUserToken("")
+  
   };
+  
 
   return (
     <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout }}
+      value={{ user,signout,signed: !!user, signin, signup, setUser, setUserNotes, userNotes }}
     >
       {children}
     </AuthContext.Provider>
